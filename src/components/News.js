@@ -26,8 +26,8 @@ export class News extends Component {
         }
     }
 
-    async componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=1&pageSize=${this.props.pageSize}`;
+    async updateNews() {
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         this.setState({loading: true});
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -39,32 +39,57 @@ export class News extends Component {
         })
     }
 
+    async componentDidMount() {
+        // let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=1&pageSize=${this.props.pageSize}`;
+        // this.setState({loading: true});
+        // let data = await fetch(url);
+        // let parsedData = await data.json();
+        // console.log(parsedData);
+        // this.setState({
+        //     articles: parsedData.articles,
+        //     totalResults: parsedData.totalResults,
+        //     loading: false
+        // })
+
+        this.updateNews();
+    }
+
     handlePrevClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-        this.setState({loading: true});
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        console.log(parsedData);
+        // let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        // this.setState({loading: true});
+        // let data = await fetch(url);
+        // let parsedData = await data.json();
+        // console.log(parsedData);
+        // this.setState({
+        //     articles: parsedData.articles,
+        //     page: this.state.page - 1,
+        //     loading: false
+        // })
+
         this.setState({
-            articles: parsedData.articles,
-            page: this.state.page - 1,
-            loading: false
+            page: this.state.page - 1
         })
+        this.updateNews();
     }
 
     handleNextClick = async () => {
-        if(!(this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize))){
-            let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
-            this.setState({loading: true});
-            let data = await fetch(url);
-            let parsedData = await data.json();
-            console.log(parsedData);
-            this.setState({
-                articles: parsedData.articles,
-                page: this.state.page + 1,
-                loading: false
-            })
-        }
+        // if(!(this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize))){
+        //     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=5f43e7597de3463fb2f3a0305c5c6fa9&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+        //     this.setState({loading: true});
+        //     let data = await fetch(url);
+        //     let parsedData = await data.json();
+        //     console.log(parsedData);
+        //     this.setState({
+        //         articles: parsedData.articles,
+        //         page: this.state.page + 1,
+        //         loading: false
+        //     })
+        // }
+
+        this.setState({
+            page: this.state.page + 1
+        })
+        this.updateNews();
     }
 
   render() {
